@@ -9,7 +9,7 @@
     gunicorn
     flask_cors
     
-### How to setup and run
+### How to set up and run
 ##### Create virtual environment 
 ###### Windows 
     py -3 -m venv <name of environment>
@@ -29,3 +29,28 @@
 * Use Python 3.9 and scikit-learn==1.0
 * If any new library requires to install, after install freeze it to the requirements.txt
 * add your virtual environment directory to .gitignore 
+
+### Rest Api Documentation
+#### Melanoma detection using PPS
+   Method: POST <br/>
+   End point: https://melanoma-detection-tool-api.herokuapp.com/predict/pps <br/>
+   Request body format: JSON <br/>
+   Required params in request body: age, FATHMM, gene, tier, mutated dna <br/><br/>
+   Example request body <br/>
+   
+       { 
+            "age" : 45, 
+            "FATHMM" : 0.98542, 
+            "gene" : "BRAF",
+            "tumor" : "metastasis",
+            "tier" : 1,
+            "mutated dna" : "MAALSGGGGGGAEPGQALFNGDMEPEAGAGAGAAASSAADPAIPEE"
+       }
+       
+   Response Status <br/>
+   200: Request processed successfully and returns Yes/No. <br/>
+   Yes - has melanoma, No - hasn't melanoma <br/><br/>
+   400: Bad request
+   
+   
+   
