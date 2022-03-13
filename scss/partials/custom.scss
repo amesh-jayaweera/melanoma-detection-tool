@@ -1,0 +1,228 @@
+//for customize the bootstrap styles
+@import "./_variables.scss";
+body{
+    font-family: Calcutta;
+}
+.container{
+    max-width: inherit;
+    padding-right: 0;
+    padding-left: 0;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 20px;
+}
+.navbar-light 
+{
+    padding:0;
+    padding-left: 5%;
+    padding-right: 5%;
+    background-color: $blue;
+    .navbar-brand{
+        .icon-melanoma-icon{
+            font-size: 60px;
+        }
+    }
+    .navbar-nav 
+    {
+        .nav-link{
+            padding-right: 20px;
+            padding-left: 20px;
+            color: $white;
+        
+            &:hover{
+                color: $lightblue;
+                font-weight: bold;
+            }
+        }
+    }
+
+}
+
+.banner-image{
+    .banner-bg-image{
+        width: 100%;
+    }
+    
+}
+.btn-primary {
+    padding-left: 40px;
+    padding-right: 40px;
+}
+hr{
+    margin-top: -5px;
+    margin-bottom: 25px;
+    border-top: 1px solid $black;
+}
+.melanoma-diagnosis{
+    .card{
+        padding: 50px 40px 30px 40px;
+        border: none;
+        .melanoma-diagnosis-heading{
+            padding-bottom: 30px;
+            
+        }
+    }
+}
+.melanoma-detection-tool{
+    img{
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .tool-functionality{
+        margin-top: 40px;
+    
+        .tool-functionality-title{
+            background-color: $lightblue;
+            padding: 5px;
+            color: $blue;
+            // text-decoration: underline;
+            font-style: italic;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 25px;
+            padding-left: 10px;
+            
+            &::after{
+                content: quote($string: "?");
+                font-size: 40px;
+                margin-top: 10px;
+                font-weight: 800;
+            }
+        }
+    }
+
+    .tool-functionality-body{
+        font-family: "Playfair Display";
+        font-size: 18px;
+        margin-left: 5%;
+        margin-right: 5%;
+        .card{
+            padding: 3%;
+            
+            .step-indicator{
+                font-size: 30px;
+                font-weight: 800;
+                text-align: center;
+            }
+            &:nth-child(odd){
+                margin-bottom: 5%;
+                margin-top: 5%;
+            }
+        }
+
+
+    }
+   
+}
+.about-melanoma, .melanoma-detection-tool, .melanoma-diagnosis,.contact-us{
+    padding-left: 20%;
+    padding-right: 20%;
+    padding-top: 50px;
+
+    .about-melanoma-heading, .melanoma-detection-tool-heading, .melanoma-diagnosis-heading, .contact-us-heading{
+        margin-right: auto;
+        margin-left: auto;
+        text-align: center;
+        color: $black;
+        font-size: 50px;
+        font-weight: 600;
+
+        span{
+            // color: $blue;
+            font-size: 70px; 
+        }
+    }
+
+    .about-melanoma-body, .melanoma-detection-tool-body, .tool-functionality-body, .melanoma-diagnosis-body, .contact-us-body{
+        text-align: justify;
+        img{
+            width: 80%;
+            
+        }
+        .form-control{
+            border: none;
+            border-bottom: 2px solid $black;
+            background-color: $ash-blue;
+            border-radius: 0%;
+        }
+        .first-para{
+            &:first-letter {
+                float: left;
+                font-size: 80px;
+                font-weight: bold;
+                margin-right: 9px;
+                // margin-top: 10px;
+            }
+            
+        }
+        p, label{
+            font-size: 18px;
+            padding-bottom: 5px;
+            // column-count: 2;
+            // column-gap: 40px;
+            font-family: "Playfair Display";
+            
+            q{
+                margin-bottom:-30px;
+                line-height: 0.5;
+                text-align: center;
+                font-size: 22px;
+                &:before { 
+                    content: open-quote;
+                    font-weight: bold;
+                    font-size:40px;
+                    color:$blue;
+                } 
+                &:after { 
+                    content: close-quote;
+                    font-weight: bold;
+                    font-size:40px;
+                    color:$blue;
+                }
+            }
+        }
+        .image-melanoma{
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+        }
+        .tool-functionality-image{
+            max-width: 100%;
+            img{
+                width: 100%;
+            }
+        }
+    }
+}
+
+// .btn-primary{
+
+// }
+
+.footer{
+    background-color: $blue;
+    padding: 30px;
+    margin-top: 5%;
+    .icon-melanoma-icon{
+        font-size: 60px;
+        padding-left: 15%;
+    }
+    .text-center{
+        font-size: 14px;
+        color: $ash-blue;
+        padding-top: 3%;
+    }
+
+    .footer-info{
+        line-height: 2px;
+        margin-top: 3%;
+        color: white;
+        padding-left: 15%;
+    }
+}
+
+.row{
+    margin-right: 0px;
+    margin-left: 0px;
+}

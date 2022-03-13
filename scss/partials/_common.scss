@@ -1,0 +1,15 @@
+body{
+    margin: 0;
+    padding: 0;
+    // font-family: Calcutta;
+}
+
+.banner-image{
+    position: relative;
+    text-align: center;
+    .bottom-left {
+        position: absolute;
+        bottom: 8px;
+        left: 16px;
+    }
+}
