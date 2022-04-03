@@ -18,7 +18,7 @@ def melanoma_detection_by_pps():
         return response, 200  # request completed successfully
     except Exception as e:
         print(e)
-        return {"message" : "Something went wrong!"}, 500  # bad request
+        return {"message": "Something went wrong!"}, 400  # bad request
 
 
 # @app.route('/predict-melanoma?byMethod=dermoscopic-images', methods=['POST'])
