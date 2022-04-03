@@ -302,9 +302,18 @@
                         </div>
                         <br>
 
-                        <div class="alert alert-warning alert-dismissible fade show" role="alert" id="input-validation-error" style="display: none">
+                        <!-- Input Validation Error -->
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert"
+                             id="input-validation-error" style="display: none">
                             <strong>Input Validation Error!</strong>
                             <div id="input-validation-error-message"></div>
+                        </div>
+
+                        <!-- Server Error Message -->
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert"
+                             id="server-error" style="display: none">
+                            <strong>Server Error!</strong>
+                            <div id="server-error-message"></div>
                         </div>
 
                         <!-- form DNA -->
@@ -377,11 +386,65 @@
                             </div>
                         </div>
 
+                        <!-- Check Result -->
                         <div class="text-center">
-                            <button type="button" class="btn btn-primary" onclick="onCheckResult()">Check Result</button>
+                            <button class="btn btn-primary" type="button" onclick="onCheckResult()"
+                                    id="btn-check-result">
+                                <span id="btn-loading-spinner" role="status" aria-hidden="true"></span>
+                                Check Result
+                            </button>
                         </div>
 
-                        <br>
+                        <!-- Results DNA -->
+                        <div id="results-dna" style="display:none;">
+                            <br/>
+                            <div class="text-center">
+                                <div class="alert alert-primary" role="alert">
+                                    <h4 class="alert-heading">Melanoma Diagnosis Results</h4>
+                                </div>
+                            </div>
+
+                            <div>
+                                <table class="table-responsive table caption-bottom">
+                                    <caption>Changes in Protein Primary Structure</caption>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">A</th>
+                                            <th scope="col">C</th>
+                                            <th scope="col">D</th>
+                                            <th scope="col">E</th>
+                                            <th scope="col">F</th>
+                                            <th scope="col">G</th>
+                                            <th scope="col">H</th>
+                                            <th scope="col">I</th>
+                                            <th scope="col">K</th>
+                                            <th scope="col">L</th>
+                                            <th scope="col">M</th>
+                                            <th scope="col">N</th>
+                                            <th scope="col">P</th>
+                                            <th scope="col">Q</th>
+                                            <th scope="col">R</th>
+                                            <th scope="col">S</th>
+                                            <th scope="col">T</th>
+                                            <th scope="col">V</th>
+                                            <th scope="col">W</th>
+                                            <th scope="col">Y</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="pss_changes"></tbody>
+                                </table>
+                            </div>
+
+                            <!-- risk level -->
+                            <div class="text-center">
+                                <div role="alert" id="risk-level-alert">
+                                    <div>There is a <strong id="melanoma-probability-byDNA-value"></strong>
+                                        % of risk of being affected by melanoma. </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <br/>
                     </form>
                 </div>
             </div>
@@ -423,12 +486,9 @@
                         </form>
                     </div>
                 </div>
-
             </div>
         </div>
-
     </div>
-
 
     <div class="footer">
         <div class="row">
@@ -459,15 +519,21 @@
             duration: 1000,
         });
     </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <script type="text/javascript">
 
+        // global constants
         const DNA_CHARS = ['A', 'C', 'G', 'T'];
+        const API_DNA = "https://melanoma-detection-tool-api.herokuapp.com/predict-melanoma/pps";
+        // const API_DNA = "http://127.0.0.1:5000/predict-melanoma/pps";
 
         /***
          * The method handle melanoma form submission process
          */
         function onCheckResult() {
+            const resultsDNA = document.getElementById("results-dna");
+            resultsDNA.setAttribute("style", "display: none;");
             const inputValidationErrorBlock = document.getElementById("input-validation-error");
             inputValidationErrorBlock.setAttribute("style", "display: none;");
             const type = document.querySelector('input[name="selection"]:checked').value;
@@ -490,9 +556,80 @@
                     return;
                 }
 
+                setButtonToLoadingMode();
                 // All inputs valid now!
-                console.log(geneName, tier, tumorOrigin, age, mutatedDNASeq);
+                const request_data = {
+                    gene : geneName,
+                    tumor : tumorOrigin,
+                    tier : tier,
+                    age : age,
+                    mutated_dna : mutatedDNASeq
+                };
+
+                $.ajax({
+                    method: "POST",
+                    crossDomain: true,
+                    dataType: "json",
+                    crossOrigin: true,
+                    async: true,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    data: JSON.stringify(request_data),
+                    url: API_DNA,
+                    success: function (result) {
+                        setButtonToDefaultMode();
+                        showResultByDNA(result);
+                    },
+                    error: function (error) {
+                        showServerErrorMessage(error.message);
+                        setButtonToDefaultMode();
+                    }
+                });
             }
+        }
+
+        function showResultByDNA(result) {
+            const prob = Math.round(Number(result['probability']) * 100);
+            const resultsDNA = document.getElementById("results-dna");
+            const resultAlert = document.getElementById("risk-level-alert");
+            resultsDNA.removeAttribute("style");
+            if(prob >= 50) {
+                resultAlert.setAttribute("class", "alert alert-danger")
+            } else {
+                resultAlert.setAttribute("class", "alert alert-success")
+            }
+            const probElement = document.getElementById("melanoma-probability-byDNA-value");
+            probElement.innerText = prob.toString();
+            $('#pss_changes > tr > td').remove();
+            const pps = document.getElementById("pss_changes");
+            let pps_tr = "<tr>";
+            const pps_values = result['pps'];
+            for(let i=0; i<pps_values.length; i++) {
+                pps_tr += "<td>" + pps_values[i].toString() + "</td>";
+            }
+            pps_tr += "</tr>";
+            $('#pss_changes').append(pps_tr);
+        }
+
+         /***
+         * The method set 'Check Result' button to be disabled and loading mode
+         */
+        function setButtonToLoadingMode() {
+            const btnLoadingSpinner = document.getElementById("btn-loading-spinner");
+            const btnCheckResult = document.getElementById("btn-check-result");
+            btnLoadingSpinner.setAttribute("class", "spinner-border spinner-border-sm");
+            btnCheckResult.setAttribute("disabled", "true");
+        }
+
+        /***
+         * The method set 'Check Result' button to default mode
+         */
+        function setButtonToDefaultMode() {
+            const btnLoadingSpinner = document.getElementById("btn-loading-spinner");
+            const btnCheckResult = document.getElementById("btn-check-result");
+            btnLoadingSpinner.removeAttribute("class");
+            btnCheckResult.removeAttribute("disabled");
         }
 
         /***
@@ -503,6 +640,16 @@
             const inputValidationErrorBlock = document.getElementById("input-validation-error");
             inputValidationErrorBlock.setAttribute("style", "display: block;");
             document.getElementById("input-validation-error-message").innerText = errorMessage;
+        }
+
+        /***
+         * The method shows input validation error messages
+         * @param errorMessage - instance of String that indicates the error message
+         */
+        function showServerErrorMessage(errorMessage) {
+            const inputValidationErrorBlock = document.getElementById("server-error");
+            inputValidationErrorBlock.setAttribute("style", "display: block;");
+            document.getElementById("server-error-message").innerText = errorMessage;
         }
 
         /***
@@ -538,7 +685,6 @@
             }
             return true;
         }
-
     </script>
 </body>
 </html>
