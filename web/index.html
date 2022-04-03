@@ -153,7 +153,7 @@
 
         <!-- melanoma-detection-tool -->
         <div class="melanoma-detection-tool" id="melanoma-detection-tool">
-            <div class="melanoma-detection-tool-heading" id="melanoma-detection-tool" data-aos="fade-up">
+            <div class="melanoma-detection-tool-heading" id="melanoma-detection-tool-heading" data-aos="fade-up">
                 <span>Melonoma</span> Detection Tool
             </div>
             <img class="d-block image-melanoma" src="images/Melanoma-Detection-App-2.png" alt="melanoma-image-1"
@@ -284,44 +284,104 @@
         <!-- test-melanoma-diagnosis -->
         <div class="melanoma-diagnosis" id="melanoma-diagnosis">
             <div class="card melanoma-diagnosis-section text-left">
-                <div class="melanoma-diagnosis-heading " data-aos="fade-up">Melanoma Diagnosis</div>
-                <hr />
+                <div class="melanoma-diagnosis-heading aos-init aos-animate" data-aos="fade-up">Melanoma Diagnosis</div>
+                <hr>
                 <div class="melanoma-diagnosis-body">
-                    <form action="" data-aos="fade-up">
+                    <form action="" data-aos="fade-up" class="aos-init aos-animate">
+
+                        <!-- Select Type -->
                         <div class="row text-center">
                             <div class="col-sm-12 col-md-6 text-center">
-                                <input type="radio" id="mutated_DNA" name="selection" value="mutated_DNA">
-                                <label for="mutated_DNA" class="ml-2">Mutated DNA</label>
+                                <input type="radio" id="typeDNA" name="selection" checked="checked" onchange="onSwitchForm()" value="typeDNA">
+                                <label for="typeDNA" class="ml-2">Mutated DNA</label>
                             </div>
                             <div class="col-sm-12 col-md-6 text-center">
-                                <input type="radio" id="dermoscopic_image" name="selection" value="dermoscopic_image"
-                                    class="my-auto">
-                                <label for="dermoscopic_image" class="ml-2">Dermoscopic Image</label>
+                                <input type="radio" id="typeDermoscopicImage" name="selection" class="my-auto" onchange="onSwitchForm()" value="typeDermoscopicImage">
+                                <label for="typeDermoscopicImage" class="ml-2">Dermoscopic Image</label>
                             </div>
                         </div>
-                        <br />
-                        <div class="form-group row">
-                            <label for="input-01" class="col-md-12 col-lg-2 col-form-label">Text 01</label>
-                            <div class="col-md-12 col-lg-10">
-                                <input type="text" class="form-control" id="input-01" placeholder="Input-01">
+                        <br>
+
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert" id="input-validation-error" style="display: none">
+                            <strong>Input Validation Error!</strong>
+                            <div id="input-validation-error-message"></div>
+                        </div>
+
+                        <!-- form DNA -->
+                        <div id="form-dna">
+                            <!-- Gene Name -->
+                            <div class="form-group row">
+                                <label for="geneName" class="col-md-12 col-lg-3 col-form-label">Gene Name</label>
+                                <div class="col-md-12 col-lg-9">
+                                    <select id="geneName" name="geneName">
+                                        <option value="BRAF">BRAF</option>
+                                        <option value="LRP1B">LRP1B</option>
+                                        <option value="MUC16">MUC16</option>
+                                        <option value="NRAS">NRAS</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Tier -->
+                            <div class="form-group row">
+                                <label for="tier" class="col-md-12 col-lg-3 col-form-label">Tier</label>
+                                <div class="col-md-12 col-lg-9">
+                                    <select id="tier" name="tier">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Tumour Origin -->
+                            <div class="form-group row">
+                                <label for="tumorOrigin" class="col-md-12 col-lg-3 col-form-label">Tumour Origin</label>
+                                <div class="col-md-12 col-lg-9">
+                                    <select id="tumorOrigin" name="tumorOrigin">
+                                        <option value="primary">Primary</option>
+                                        <option value="NS">Not Specified</option>
+                                        <option value="metastasis">Metastasis</option>
+                                        <option value="secondary">Secondary</option>
+                                        <option value="recurrent">Recurrent</option>
+                                        <option value="hyperplasia adjacent to primary tumour">
+                                            Hyperplasia adjacent to primary tumour
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Age -->
+                            <div class="form-group row">
+                                <label for="age" class="col-md-12 col-lg-3 col-form-label">Age</label>
+                                <div class="col-md-3 col-lg-2">
+                                    <input type="number" class="form-control" id="age" name="age" placeholder="Age" value="0">
+                                </div>
+                            </div>
+
+                            <!-- Mutated DNA Sequence -->
+                            <div class="form-group row">
+                                <label for="mutatedDNA" class="col-md-12 col-lg-3 col-form-label">Mutated DNA</label>
+                                <div class="col-md-12 col-lg-9">
+                                    <input type="text" class="form-control" id="mutatedDNA" name="mutatedDNA" placeholder="Mutated DNA Sequence">
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="input-02" class="col-md-12 col-lg-2 col-form-label">Text 02</label>
-                            <div class="col-md-12 col-lg-10">
-                                <input type="text" class="form-control" id="input-02" placeholder="Input-02">
+
+                        <!-- form Dermoscopic Image -->
+                        <div id="form-skin-image" style="display: none">
+                            <div class="form-group row">
+                                <label for="input-03" class="col-md-12 col-lg-2 col-form-label">Text 03</label>
+                                <div class="col-md-12 col-lg-10">
+                                    <input type="text" class="form-control" id="input-03" placeholder="Input-03">
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="input-03" class="col-md-12 col-lg-2 col-form-label">Text 03</label>
-                            <div class="col-md-12 col-lg-10">
-                                <input type="text" class="form-control" id="input-03" placeholder="Input-03">
-                            </div>
-                        </div>
+
                         <div class="text-center">
-                            <button type="button" class="btn btn-primary ">Check Result</button>
+                            <button type="button" class="btn btn-primary" onclick="onCheckResult()">Check Result</button>
                         </div>
-                        <br />
+
+                        <br>
                     </form>
                 </div>
             </div>
@@ -400,7 +460,85 @@
         });
     </script>
 
-    <script type="text/javascript"></script>
-</body>
+    <script type="text/javascript">
 
+        const DNA_CHARS = ['A', 'C', 'G', 'T'];
+
+        /***
+         * The method handle melanoma form submission process
+         */
+        function onCheckResult() {
+            const inputValidationErrorBlock = document.getElementById("input-validation-error");
+            inputValidationErrorBlock.setAttribute("style", "display: none;");
+            const type = document.querySelector('input[name="selection"]:checked').value;
+            if(type === "typeDermoscopicImage") {
+                // TO-DO
+            } else if(type === "typeDNA") {
+                const geneName = document.querySelector('#geneName').value;
+                const tier = Number(document.querySelector('#tier').value);
+                const tumorOrigin = document.querySelector('#tumorOrigin').value;
+                const age = Number(document.querySelector('#age').value);
+                const mutatedDNASeq = document.querySelector('#mutatedDNA').value.trim();
+
+                if(!(age >= 0 && age <= 120)) {
+                    showValidationErrorMessage("Age must be in between 0 - 120");
+                    return;
+                }
+
+                if(!isValidDNA(mutatedDNASeq)) {
+                    showValidationErrorMessage("DNA Sequence can be only contained 'A', 'C', 'G', 'T' characters!");
+                    return;
+                }
+
+                // All inputs valid now!
+                console.log(geneName, tier, tumorOrigin, age, mutatedDNASeq);
+            }
+        }
+
+        /***
+         * The method shows input validation error messages
+         * @param errorMessage - instance of String that indicates the error message
+         */
+        function showValidationErrorMessage(errorMessage) {
+            const inputValidationErrorBlock = document.getElementById("input-validation-error");
+            inputValidationErrorBlock.setAttribute("style", "display: block;");
+            document.getElementById("input-validation-error-message").innerText = errorMessage;
+        }
+
+        /***
+         * This function switch the melanoma diagnosis method based on user option
+         */
+        function onSwitchForm() {
+            const typeDermoscopicImageForm = document.getElementById("form-skin-image");
+            const typeDNAForm = document.getElementById("form-dna");
+            const type = document.querySelector('input[name="selection"]:checked').value;
+            if(type === "typeDermoscopicImage") {
+                typeDermoscopicImageForm.removeAttribute("style");
+                typeDNAForm.setAttribute("style", "display: none;");
+            } else if(type === "typeDNA") {
+                typeDNAForm.removeAttribute("style");
+                typeDermoscopicImageForm.setAttribute("style", "display: none;");
+            }
+        }
+
+        /***
+         * The method validates the DNA sequence
+         * @param seq -  instance of String
+         * @returns {boolean} returns True/False.
+         *                    True - Sequence is valid.
+         *                    False - Sequence is invalid.
+         */
+        function isValidDNA(seq) {
+            if(seq.length === 0) return false;
+
+            for (let i = 0; i < seq.length; i++) {
+                if(!DNA_CHARS.includes(seq.charAt(i))) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+    </script>
+</body>
 </html>
