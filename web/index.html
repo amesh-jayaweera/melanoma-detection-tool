@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Melanoma</title>
+    <title>Melanoma Detection Tool</title>
     <link rel="icon" href="images/logo-mel.svg">
     <link href="css/styles.css" type="text/css" rel="stylesheet" />
     <link href="css/aos/aos.css" type="text/css" rel="stylesheet" />
@@ -369,9 +369,9 @@
 
                             <!-- Mutated DNA Sequence -->
                             <div class="form-group row">
-                                <label for="mutatedDNA" class="col-md-12 col-lg-3 col-form-label">Mutated DNA</label>
+                                <label for="mutatedDNA" class="col-md-12 col-lg-3 col-form-label">DNA Sequence</label>
                                 <div class="col-md-12 col-lg-9">
-                                    <input type="text" class="form-control" id="mutatedDNA" name="mutatedDNA" placeholder="Mutated DNA Sequence">
+                                    <input type="text" class="form-control" id="mutatedDNA" name="mutatedDNA" placeholder="DNA Sequence">
                                 </div>
                             </div>
                         </div>
@@ -379,16 +379,24 @@
                         <!-- form Dermoscopic Image -->
                         <div id="form-skin-image" style="display: none">
                             <div class="form-group row">
-                                <label for="input-03" class="col-md-12 col-lg-2 col-form-label">Text 03</label>
+                                <label for="input-03" class="col-md-12 col-lg-2 col-form-label">Dermoscopy Image</label>
                                 <div class="col-md-12 col-lg-10">
-                                    <input type="text" class="form-control" id="input-03" placeholder="Input-03">
+                                    <input type="file" class="form-control" id="img" placeholder="Input Dermoscopy Image">
                                 </div>
                             </div>
                         </div>
 
                         <!-- Check Result -->
-                        <div class="text-center">
-                            <button class="btn btn-primary" type="button" onclick="onCheckResult()"
+                        <div class="text-center" id="checkButtonImage" style="display: none;">
+                            <button class="btn btn-primary" type="button" onclick="onCheckResultImage()"
+                                    id="btn-check-result">
+                                <span id="btn-loading-spinner" role="status" aria-hidden="true"></span>
+                                Check Result
+                            </button>
+                        </div>
+
+                        <div class="text-center" id="checkButtonDNA">
+                            <button class="btn btn-primary" type="button" onclick="onCheckResultDNA()"
                                     id="btn-check-result">
                                 <span id="btn-loading-spinner" role="status" aria-hidden="true"></span>
                                 Check Result
@@ -440,6 +448,67 @@
                                 <div role="alert" id="risk-level-alert">
                                     <div>There is a <strong id="melanoma-probability-byDNA-value"></strong>
                                         % of risk of being affected by melanoma. </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Results Dermoscopic Image -->
+                        <div id="resultsImage" style="display: none;">
+                            <br/>
+                            <div class="text-center">
+                                <div class="alert alert-primary" role="alert">
+                                    <h4 class="alert-heading">Melanoma Diagnosis Results</h4>
+                                </div>
+                            </div>
+
+                            <div>
+                                <table class="table-responsive table caption-bottom">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Asymmetry</th>
+                                            <td scope="col"><span id="asymmetry"></span></td>
+                                            <th scope="col">Blotches</th>
+                                            <td scope="col"><span id="blotches"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="col">Border Irregularity</th>
+                                            <td scope="col"><span id="border"></span></td>
+                                            <th scope="col">Globules</th>
+                                            <td scope="col"><span id="globules"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="col">Colour Variation</th>
+                                            <td scope="col"><span id="colour"></span></td>
+                                            <th scope="col">Atypical Pigment Network</th>
+                                            <td scope="col"><span id="atypical"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="col">Diameter</th>
+                                            <td scope="col"><span id="diameter"></span></td>
+                                            <th scope="col">Irregular Streaks</th>
+                                            <td scope="col"><span id="streaks"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="col">Blue-white Veil</th>
+                                            <td scope="col"><span id="blue"></span></td>
+                                            <th scope="col">Milky-red Areas</th>
+                                            <td scope="col"><span id="red"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="col">Regression Structure</th>
+                                            <td scope="col"><span id="regression"></span></td>
+                                            <th scope="col">Rosettes</th>
+                                            <td scope="col"><span id="rosettes"></span></td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+
+                            <!-- risk level -->
+                            <div class="text-center">
+                                <div role="alert" id="risk-level-alert">
+                                        <div>Diagnosis result is <strong id="imageResult"></strong> and the confidence on the result given is <strong id="imagePercentage"></strong>%</div>
                                 </div>
                             </div>
 
@@ -526,12 +595,102 @@
         // global constants
         const DNA_CHARS = ['A', 'C', 'G', 'T'];
         const API_DNA = "https://melanoma-detection-tool-api.herokuapp.com/predict-melanoma/pps";
+        const Image_DNA = "https://melanoma-detection-tool-api.herokuapp.com/predict-melanoma/dermoscopic-images";
+        // const Image_DNA = "http://127.0.0.1:5000/predict-melanoma/dermoscopic-images";
         // const API_DNA = "http://127.0.0.1:5000/predict-melanoma/pps";
 
-        /***
-         * The method handle melanoma form submission process
-         */
-        function onCheckResult() {
+
+        function onCheckResultImage(){
+            var fd = new FormData();
+            var files = $('#img')[0].files;
+        
+            if(files.length > 0 ){
+                fd.append('image',files[0]);
+                $.ajax({
+                        method: "POST",
+                        crossDomain: true,
+                        dataType: "json",
+                        crossOrigin: true,
+                        async: true,
+                        contentType: false,
+                        processData: false,
+                        data: fd,
+                        url: Image_DNA,
+                        success: function (result) {
+                            setButtonToDefaultMode();
+                            if(result[2][0] == 0) {
+                                $("#asymmetry").text("No");
+                            } else {
+                                $("#asymmetry").text("Yes");
+                            }
+                            if(result[2][1] == 0) {
+                                $("#border").text("No");
+                            } else {
+                                $("#border").text("Yes");
+                            }
+                            if(result[2][2] == 0) {
+                                $("#colour").text("No");
+                            } else {
+                                $("#colour").text("Yes");
+                            }
+                            if(result[2][3] == 0) {
+                                $("#diameter").text("No");
+                            } else {
+                                $("#diameter").text("Yes");
+                            }
+                            if(result[2][4] == 0) {
+                                $("#globules").text("No");
+                            } else {
+                                $("#globules").text("Yes");
+                            }
+                            if(result[2][5] == 0) {
+                                $("#blotches").text("No");
+                            } else {
+                                $("#blotches").text("Yes");
+                            }
+                            if(result[2][6] == 0) {
+                                $("#red").text("No");
+                            } else {
+                                $("#red").text("Yes");
+                            }
+                            if(result[2][7] == 0) {
+                                $("#rosettes").text("No");
+                            } else {
+                                $("#rosettes").text("Yes");
+                            }
+                            if(result[2][8] == 0) {
+                                $("#regression").text("No");
+                            } else {
+                                $("#regression").text("Yes");
+                            }
+                            if(result[2][9] == 0) {
+                                $("#blue").text("No");
+                            } else {
+                                $("#blue").text("Yes");
+                            }
+                            if(result[2][10] == 0) {
+                                $("#atypical").text("No");
+                            } else {
+                                $("#atypical").text("Yes");
+                            }
+                            if(result[2][11] == 0) {
+                                $("#streaks").text("No");
+                            } else {
+                                $("#streaks").text("Yes");
+                            }
+                            document.getElementById("imageResult").innerText = result[0]
+                            document.getElementById("imagePercentage").innerText = result[1].toFixed(2)
+                            document.getElementById("resultsImage").removeAttribute("style");
+                        },
+                        error: function (error) {
+                            showServerErrorMessage(error.message);
+                            setButtonToDefaultMode();
+                        }
+                    });
+            }
+        }
+
+        function onCheckResultDNA() {
             const resultsDNA = document.getElementById("results-dna");
             resultsDNA.setAttribute("style", "display: none;");
             const inputValidationErrorBlock = document.getElementById("input-validation-error");
@@ -659,12 +818,19 @@
             const typeDermoscopicImageForm = document.getElementById("form-skin-image");
             const typeDNAForm = document.getElementById("form-dna");
             const type = document.querySelector('input[name="selection"]:checked').value;
+            document.getElementById("resultsImage").setAttribute("style", "display: none;");
+            document.getElementById("results-dna").setAttribute("style", "display: none;");
             if(type === "typeDermoscopicImage") {
                 typeDermoscopicImageForm.removeAttribute("style");
                 typeDNAForm.setAttribute("style", "display: none;");
+                document.getElementById("checkButtonImage").removeAttribute("style");
+                document.getElementById("checkButtonDNA").setAttribute("style", "display: none;");
+                
             } else if(type === "typeDNA") {
                 typeDNAForm.removeAttribute("style");
                 typeDermoscopicImageForm.setAttribute("style", "display: none;");
+                document.getElementById("checkButtonDNA").removeAttribute("style");
+                document.getElementById("checkButtonImage").setAttribute("style", "display: none;");
             }
         }
 
