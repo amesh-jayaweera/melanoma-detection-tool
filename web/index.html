@@ -379,7 +379,7 @@
                         <!-- form Dermoscopic Image -->
                         <div id="form-skin-image" style="display: none">
                             <div class="form-group row">
-                                <label for="input-03" class="col-md-12 col-lg-2 col-form-label">Dermoscopy Image</label>
+                                <label for="img" class="col-md-12 col-lg-2 col-form-label">Dermoscopy Image</label>
                                 <div class="col-md-12 col-lg-10">
                                     <input type="file" class="form-control" id="img" placeholder="Input Dermoscopy Image">
                                 </div>
@@ -389,16 +389,16 @@
                         <!-- Check Result -->
                         <div class="text-center" id="checkButtonImage" style="display: none;">
                             <button class="btn btn-primary" type="button" onclick="onCheckResultImage()"
-                                    id="btn-check-result">
-                                <span id="btn-loading-spinner" role="status" aria-hidden="true"></span>
+                                    id="btn-check-result-1">
+                                <span id="btn-loading-spinner-1" role="status" aria-hidden="true"></span>
                                 Check Result
                             </button>
                         </div>
 
                         <div class="text-center" id="checkButtonDNA">
                             <button class="btn btn-primary" type="button" onclick="onCheckResultDNA()"
-                                    id="btn-check-result">
-                                <span id="btn-loading-spinner" role="status" aria-hidden="true"></span>
+                                    id="btn-check-result-2">
+                                <span id="btn-loading-spinner-2" role="status" aria-hidden="true"></span>
                                 Check Result
                             </button>
                         </div>
@@ -417,26 +417,26 @@
                                     <caption>Changes in Protein Primary Structure</caption>
                                     <thead>
                                         <tr>
-                                            <th scope="col">A</th>
-                                            <th scope="col">C</th>
-                                            <th scope="col">D</th>
-                                            <th scope="col">E</th>
-                                            <th scope="col">F</th>
-                                            <th scope="col">G</th>
-                                            <th scope="col">H</th>
-                                            <th scope="col">I</th>
-                                            <th scope="col">K</th>
-                                            <th scope="col">L</th>
-                                            <th scope="col">M</th>
-                                            <th scope="col">N</th>
-                                            <th scope="col">P</th>
-                                            <th scope="col">Q</th>
-                                            <th scope="col">R</th>
-                                            <th scope="col">S</th>
-                                            <th scope="col">T</th>
-                                            <th scope="col">V</th>
-                                            <th scope="col">W</th>
-                                            <th scope="col">Y</th>
+                                            <th >A</th>
+                                            <th >C</th>
+                                            <th >D</th>
+                                            <th >E</th>
+                                            <th >F</th>
+                                            <th >G</th>
+                                            <th >H</th>
+                                            <th >I</th>
+                                            <th >K</th>
+                                            <th >L</th>
+                                            <th >M</th>
+                                            <th >N</th>
+                                            <th >P</th>
+                                            <th >Q</th>
+                                            <th >R</th>
+                                            <th >S</th>
+                                            <th >T</th>
+                                            <th >V</th>
+                                            <th >W</th>
+                                            <th >Y</th>
                                         </tr>
                                     </thead>
                                     <tbody id="pss_changes"></tbody>
@@ -445,7 +445,7 @@
 
                             <!-- risk level -->
                             <div class="text-center">
-                                <div role="alert" id="risk-level-alert">
+                                <div role="alert" id="risk-level-alert-1">
                                     <div>There is a <strong id="melanoma-probability-byDNA-value"></strong>
                                         % of risk of being affected by melanoma. </div>
                                 </div>
@@ -466,40 +466,40 @@
                                 <table class="table-responsive table caption-bottom">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Asymmetry</th>
-                                            <td scope="col"><span id="asymmetry"></span></td>
-                                            <th scope="col">Blotches</th>
-                                            <td scope="col"><span id="blotches"></span></td>
+                                            <th>Asymmetry</th>
+                                            <td><span id="asymmetry"></span></td>
+                                            <th>Blotches</th>
+                                            <td><span id="blotches"></span></td>
                                         </tr>
                                         <tr>
-                                            <th scope="col">Border Irregularity</th>
-                                            <td scope="col"><span id="border"></span></td>
-                                            <th scope="col">Globules</th>
-                                            <td scope="col"><span id="globules"></span></td>
+                                            <th>Border Irregularity</th>
+                                            <td><span id="border"></span></td>
+                                            <th>Globules</th>
+                                            <td><span id="globules"></span></td>
                                         </tr>
                                         <tr>
-                                            <th scope="col">Colour Variation</th>
-                                            <td scope="col"><span id="colour"></span></td>
-                                            <th scope="col">Atypical Pigment Network</th>
-                                            <td scope="col"><span id="atypical"></span></td>
+                                            <th>Colour Variation</th>
+                                            <td><span id="colour"></span></td>
+                                            <th>Atypical Pigment Network</th>
+                                            <td><span id="atypical"></span></td>
                                         </tr>
                                         <tr>
-                                            <th scope="col">Diameter</th>
-                                            <td scope="col"><span id="diameter"></span></td>
-                                            <th scope="col">Irregular Streaks</th>
-                                            <td scope="col"><span id="streaks"></span></td>
+                                            <th>Diameter</th>
+                                            <td><span id="diameter"></span></td>
+                                            <th>Irregular Streaks</th>
+                                            <td><span id="streaks"></span></td>
                                         </tr>
                                         <tr>
-                                            <th scope="col">Blue-white Veil</th>
-                                            <td scope="col"><span id="blue"></span></td>
-                                            <th scope="col">Milky-red Areas</th>
-                                            <td scope="col"><span id="red"></span></td>
+                                            <th>Blue-white Veil</th>
+                                            <td><span id="blue"></span></td>
+                                            <th>Milky-red Areas</th>
+                                            <td><span id="red"></span></td>
                                         </tr>
                                         <tr>
-                                            <th scope="col">Regression Structure</th>
-                                            <td scope="col"><span id="regression"></span></td>
-                                            <th scope="col">Rosettes</th>
-                                            <td scope="col"><span id="rosettes"></span></td>
+                                            <th>Regression Structure</th>
+                                            <td><span id="regression"></span></td>
+                                            <th>Rosettes</th>
+                                            <td><span id="rosettes"></span></td>
                                         </tr>
                                     </thead>
                                 </table>
@@ -507,7 +507,7 @@
 
                             <!-- risk level -->
                             <div class="text-center">
-                                <div role="alert" id="risk-level-alert">
+                                <div role="alert" id="risk-level-alert-2">
                                         <div>Diagnosis result is <strong id="imageResult"></strong> and the confidence on the result given is <strong id="imagePercentage"></strong>%</div>
                                 </div>
                             </div>
@@ -601,11 +601,11 @@
 
 
         function onCheckResultImage(){
-            var fd = new FormData();
-            var files = $('#img')[0].files;
-        
+            let fd = new FormData();
+            let files = $('#img')[0].files;
             if(files.length > 0 ){
                 fd.append('image',files[0]);
+                setButtonToLoadingMode_2();
                 $.ajax({
                         method: "POST",
                         crossDomain: true,
@@ -617,63 +617,63 @@
                         data: fd,
                         url: Image_DNA,
                         success: function (result) {
-                            setButtonToDefaultMode();
-                            if(result[2][0] == 0) {
+                            setButtonToDefaultMode_2();
+                            if(result[2][0] === 0) {
                                 $("#asymmetry").text("No");
                             } else {
                                 $("#asymmetry").text("Yes");
                             }
-                            if(result[2][1] == 0) {
+                            if(result[2][1] === 0) {
                                 $("#border").text("No");
                             } else {
                                 $("#border").text("Yes");
                             }
-                            if(result[2][2] == 0) {
+                            if(result[2][2] === 0) {
                                 $("#colour").text("No");
                             } else {
                                 $("#colour").text("Yes");
                             }
-                            if(result[2][3] == 0) {
+                            if(result[2][3] === 0) {
                                 $("#diameter").text("No");
                             } else {
                                 $("#diameter").text("Yes");
                             }
-                            if(result[2][4] == 0) {
+                            if(result[2][4] === 0) {
                                 $("#globules").text("No");
                             } else {
                                 $("#globules").text("Yes");
                             }
-                            if(result[2][5] == 0) {
+                            if(result[2][5] === 0) {
                                 $("#blotches").text("No");
                             } else {
                                 $("#blotches").text("Yes");
                             }
-                            if(result[2][6] == 0) {
+                            if(result[2][6] === 0) {
                                 $("#red").text("No");
                             } else {
                                 $("#red").text("Yes");
                             }
-                            if(result[2][7] == 0) {
+                            if(result[2][7] === 0) {
                                 $("#rosettes").text("No");
                             } else {
                                 $("#rosettes").text("Yes");
                             }
-                            if(result[2][8] == 0) {
+                            if(result[2][8] === 0) {
                                 $("#regression").text("No");
                             } else {
                                 $("#regression").text("Yes");
                             }
-                            if(result[2][9] == 0) {
+                            if(result[2][9] === 0) {
                                 $("#blue").text("No");
                             } else {
                                 $("#blue").text("Yes");
                             }
-                            if(result[2][10] == 0) {
+                            if(result[2][10] === 0) {
                                 $("#atypical").text("No");
                             } else {
                                 $("#atypical").text("Yes");
                             }
-                            if(result[2][11] == 0) {
+                            if(result[2][11] === 0) {
                                 $("#streaks").text("No");
                             } else {
                                 $("#streaks").text("Yes");
@@ -684,12 +684,15 @@
                         },
                         error: function (error) {
                             showServerErrorMessage(error.message);
-                            setButtonToDefaultMode();
+                            setButtonToDefaultMode_2();
                         }
                     });
             }
         }
 
+        /***
+         * The method handles melanoma detection by DNA from submission
+         */
         function onCheckResultDNA() {
             const resultsDNA = document.getElementById("results-dna");
             resultsDNA.setAttribute("style", "display: none;");
@@ -715,7 +718,7 @@
                     return;
                 }
 
-                setButtonToLoadingMode();
+                setButtonToLoadingMode_1();
                 // All inputs valid now!
                 const request_data = {
                     gene : geneName,
@@ -737,21 +740,26 @@
                     data: JSON.stringify(request_data),
                     url: API_DNA,
                     success: function (result) {
-                        setButtonToDefaultMode();
+                        setButtonToDefaultMode_1();
                         showResultByDNA(result);
                     },
                     error: function (error) {
                         showServerErrorMessage(error.message);
-                        setButtonToDefaultMode();
+                        setButtonToDefaultMode_1();
                     }
                 });
             }
         }
 
+        /***
+         * The method show results received from the melanoma detection by DNA API
+         * @param result - JSON of response received from melanoma detection
+         *                 by DNA API
+         */
         function showResultByDNA(result) {
             const prob = Math.round(Number(result['probability']) * 100);
             const resultsDNA = document.getElementById("results-dna");
-            const resultAlert = document.getElementById("risk-level-alert");
+            const resultAlert = document.getElementById("risk-level-alert-1");
             resultsDNA.removeAttribute("style");
             if(prob >= 50) {
                 resultAlert.setAttribute("class", "alert alert-danger")
@@ -761,7 +769,6 @@
             const probElement = document.getElementById("melanoma-probability-byDNA-value");
             probElement.innerText = prob.toString();
             $('#pss_changes > tr > td').remove();
-            const pps = document.getElementById("pss_changes");
             let pps_tr = "<tr>";
             const pps_values = result['pps'];
             for(let i=0; i<pps_values.length; i++) {
@@ -772,21 +779,41 @@
         }
 
          /***
-         * The method set 'Check Result' button to be disabled and loading mode
+         * The method set 'Check Result' button to be disabled and loading mode for method 1
          */
-        function setButtonToLoadingMode() {
-            const btnLoadingSpinner = document.getElementById("btn-loading-spinner");
-            const btnCheckResult = document.getElementById("btn-check-result");
+        function setButtonToLoadingMode_1() {
+            const btnLoadingSpinner = document.getElementById("btn-loading-spinner-1");
+            const btnCheckResult = document.getElementById("btn-check-result-1");
             btnLoadingSpinner.setAttribute("class", "spinner-border spinner-border-sm");
             btnCheckResult.setAttribute("disabled", "true");
         }
 
         /***
-         * The method set 'Check Result' button to default mode
+         * The method set 'Check Result' button to default mode for method 1
          */
-        function setButtonToDefaultMode() {
-            const btnLoadingSpinner = document.getElementById("btn-loading-spinner");
-            const btnCheckResult = document.getElementById("btn-check-result");
+        function setButtonToDefaultMode_1() {
+            const btnLoadingSpinner = document.getElementById("btn-loading-spinner-1");
+            const btnCheckResult = document.getElementById("btn-check-result-1");
+            btnLoadingSpinner.removeAttribute("class");
+            btnCheckResult.removeAttribute("disabled");
+        }
+
+        /***
+         * The method set 'Check Result' button to be disabled and loading mode for method 2
+         */
+        function setButtonToLoadingMode_2() {
+            const btnLoadingSpinner = document.getElementById("btn-loading-spinner-2");
+            const btnCheckResult = document.getElementById("btn-check-result-2");
+            btnLoadingSpinner.setAttribute("class", "spinner-border spinner-border-sm");
+            btnCheckResult.setAttribute("disabled", "true");
+        }
+
+        /***
+         * The method set 'Check Result' button to default mode for method 2
+         */
+        function setButtonToDefaultMode_2() {
+            const btnLoadingSpinner = document.getElementById("btn-loading-spinner-2");
+            const btnCheckResult = document.getElementById("btn-check-result-2");
             btnLoadingSpinner.removeAttribute("class");
             btnCheckResult.removeAttribute("disabled");
         }
