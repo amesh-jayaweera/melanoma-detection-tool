@@ -379,26 +379,19 @@
                         <!-- form Dermoscopic Image -->
                         <div id="form-skin-image" style="display: none">
                             <div class="form-group row">
-                                <label for="img" class="col-md-12 col-lg-2 col-form-label">Dermoscopy Image</label>
+                                <label for="dermoscopic-img" class="col-md-12 col-lg-2 col-form-label">Dermoscopic Image</label>
                                 <div class="col-md-12 col-lg-10">
-                                    <input type="file" class="form-control" id="img" placeholder="Input Dermoscopy Image">
+                                    <input class="form-control-custom-file" type="file" id="dermoscopic-img"
+                                    accept=".png,.jpg,.jpeg">
                                 </div>
                             </div>
                         </div>
 
                         <!-- Check Result -->
-                        <div class="text-center" id="checkButtonImage" style="display: none;">
-                            <button class="btn btn-primary" type="button" onclick="onCheckResultImage()"
-                                    id="btn-check-result-1">
-                                <span id="btn-loading-spinner-1" role="status" aria-hidden="true"></span>
-                                Check Result
-                            </button>
-                        </div>
-
-                        <div class="text-center" id="checkButtonDNA">
-                            <button class="btn btn-primary" type="button" onclick="onCheckResultDNA()"
-                                    id="btn-check-result-2">
-                                <span id="btn-loading-spinner-2" role="status" aria-hidden="true"></span>
+                        <div class="text-center" id="checkButton">
+                            <button class="btn btn-primary" type="button" onclick="onCheckResult()"
+                                    id="btn-check-result">
+                                <span id="btn-loading-spinner" role="status" aria-hidden="true"></span>
                                 Check Result
                             </button>
                         </div>
@@ -413,7 +406,7 @@
                             </div>
 
                             <div>
-                                <table class="table-responsive table caption-bottom">
+                                <table class="table-responsive table caption-bottom table-center centered-table">
                                     <caption>Changes in Protein Primary Structure</caption>
                                     <thead>
                                         <tr>
@@ -446,15 +439,15 @@
                             <!-- risk level -->
                             <div class="text-center">
                                 <div role="alert" id="risk-level-alert-1">
-                                    <div>There is a <strong id="melanoma-probability-byDNA-value"></strong>
-                                        % of risk of being affected by melanoma. </div>
+                                    <div>Diagnosis result is <strong id="classification-1"></strong>
+                                        and the confidence on the result given is
+                                        <strong id="confidence-level-1"></strong>%</div>
                                 </div>
                             </div>
-
                         </div>
 
                         <!-- Results Dermoscopic Image -->
-                        <div id="resultsImage" style="display: none;">
+                        <div id="results-image" style="display: none;">
                             <br/>
                             <div class="text-center">
                                 <div class="alert alert-primary" role="alert">
@@ -463,7 +456,7 @@
                             </div>
 
                             <div>
-                                <table class="table-responsive table caption-bottom">
+                                <table class="table-responsive table caption-bottom centered-table">
                                     <thead>
                                         <tr>
                                             <th>Asymmetry</th>
@@ -508,11 +501,13 @@
                             <!-- risk level -->
                             <div class="text-center">
                                 <div role="alert" id="risk-level-alert-2">
-                                        <div>Diagnosis result is <strong id="imageResult"></strong> and the confidence on the result given is <strong id="imagePercentage"></strong>%</div>
+                                    <div>Diagnosis result is <strong id="classification-2"></strong>
+                                        and the confidence on the result given is
+                                        <strong id="confidence-level-2"></strong>%</div>
                                 </div>
                             </div>
-
                         </div>
+
                         <br/>
                     </form>
                 </div>
@@ -565,12 +560,12 @@
                 <img src="images/logo-mel.svg" width="300px" alt="">
             </div>
             <div class="col-6 text-right footer-info">
-                <p>+94 77 123 12345 | +94 77 123 12345</p>
-                <p>info@melonoma.com</p>
+                <p>+94 76 264 8871 | +94 77 627 9922 | +94 77 129 4399</p>
+                <p>info.melonoma@gmail.com</p>
             </div>
         </div>
         <div class="text-center">
-            2022 All Right Reserved
+            2022 - All Right Reserved
         </div>
     </div>
 
@@ -594,161 +589,140 @@
 
         // global constants
         const DNA_CHARS = ['A', 'C', 'G', 'T'];
+        const DERMOSCOPIC_FEATURES = ['asymmetry', 'border', 'colour', 'diameter', 'globules', 'blotches', 'red',
+            'rosettes','regression', 'blue', 'atypical', 'streaks'];
         const API_DNA = "https://melanoma-detection-tool-api.herokuapp.com/predict-melanoma/pps";
-        const Image_DNA = "https://melanoma-detection-tool-api.herokuapp.com/predict-melanoma/dermoscopic-images";
-        // const Image_DNA = "http://127.0.0.1:5000/predict-melanoma/dermoscopic-images";
-        // const API_DNA = "http://127.0.0.1:5000/predict-melanoma/pps";
-
-
-        function onCheckResultImage(){
-            let fd = new FormData();
-            let files = $('#img')[0].files;
-            if(files.length > 0 ){
-                fd.append('image',files[0]);
-                setButtonToLoadingMode_2();
-                $.ajax({
-                        method: "POST",
-                        crossDomain: true,
-                        dataType: "json",
-                        crossOrigin: true,
-                        async: true,
-                        contentType: false,
-                        processData: false,
-                        data: fd,
-                        url: Image_DNA,
-                        success: function (result) {
-                            setButtonToDefaultMode_2();
-                            if(result[2][0] === 0) {
-                                $("#asymmetry").text("No");
-                            } else {
-                                $("#asymmetry").text("Yes");
-                            }
-                            if(result[2][1] === 0) {
-                                $("#border").text("No");
-                            } else {
-                                $("#border").text("Yes");
-                            }
-                            if(result[2][2] === 0) {
-                                $("#colour").text("No");
-                            } else {
-                                $("#colour").text("Yes");
-                            }
-                            if(result[2][3] === 0) {
-                                $("#diameter").text("No");
-                            } else {
-                                $("#diameter").text("Yes");
-                            }
-                            if(result[2][4] === 0) {
-                                $("#globules").text("No");
-                            } else {
-                                $("#globules").text("Yes");
-                            }
-                            if(result[2][5] === 0) {
-                                $("#blotches").text("No");
-                            } else {
-                                $("#blotches").text("Yes");
-                            }
-                            if(result[2][6] === 0) {
-                                $("#red").text("No");
-                            } else {
-                                $("#red").text("Yes");
-                            }
-                            if(result[2][7] === 0) {
-                                $("#rosettes").text("No");
-                            } else {
-                                $("#rosettes").text("Yes");
-                            }
-                            if(result[2][8] === 0) {
-                                $("#regression").text("No");
-                            } else {
-                                $("#regression").text("Yes");
-                            }
-                            if(result[2][9] === 0) {
-                                $("#blue").text("No");
-                            } else {
-                                $("#blue").text("Yes");
-                            }
-                            if(result[2][10] === 0) {
-                                $("#atypical").text("No");
-                            } else {
-                                $("#atypical").text("Yes");
-                            }
-                            if(result[2][11] === 0) {
-                                $("#streaks").text("No");
-                            } else {
-                                $("#streaks").text("Yes");
-                            }
-                            document.getElementById("imageResult").innerText = result[0]
-                            document.getElementById("imagePercentage").innerText = result[1].toFixed(2)
-                            document.getElementById("resultsImage").removeAttribute("style");
-                        },
-                        error: function (error) {
-                            showServerErrorMessage(error.message);
-                            setButtonToDefaultMode_2();
-                        }
-                    });
-            }
-        }
+        const API_DERMOSCOPIC = "https://melanoma-detection-tool-api.herokuapp.com/predict-melanoma/dermoscopic-images";
 
         /***
          * The method handles melanoma detection by DNA from submission
          */
-        function onCheckResultDNA() {
-            const resultsDNA = document.getElementById("results-dna");
-            resultsDNA.setAttribute("style", "display: none;");
-            const inputValidationErrorBlock = document.getElementById("input-validation-error");
-            inputValidationErrorBlock.setAttribute("style", "display: none;");
+        function onCheckResult() {
+            document.getElementById("results-dna").setAttribute("style", "display: none;");
+            document.getElementById("results-image").setAttribute("style", "display: none;");
+            document.getElementById("input-validation-error").setAttribute("style", "display: none;");
+            document.getElementById("server-error").setAttribute("style", "display: none;");
             const type = document.querySelector('input[name="selection"]:checked').value;
+
             if(type === "typeDermoscopicImage") {
-                // TO-DO
+                processByDermoscopicImage();
             } else if(type === "typeDNA") {
-                const geneName = document.querySelector('#geneName').value;
-                const tier = Number(document.querySelector('#tier').value);
-                const tumorOrigin = document.querySelector('#tumorOrigin').value;
-                const age = Number(document.querySelector('#age').value);
-                const mutatedDNASeq = document.querySelector('#mutatedDNA').value.trim();
+                processByDNA();
+            }
+        }
 
-                if(!(age >= 0 && age <= 120)) {
-                    showValidationErrorMessage("Age must be in between 0 - 120");
-                    return;
+        /***
+         * The method handles the form data and
+         * call rest api for melanoma detection using DNA
+         */
+        function processByDNA() {
+            const geneName = document.querySelector('#geneName').value;
+            const tier = Number(document.querySelector('#tier').value);
+            const tumorOrigin = document.querySelector('#tumorOrigin').value;
+            const age = Number(document.querySelector('#age').value);
+            const mutatedDNASeq = document.querySelector('#mutatedDNA').value.trim();
+
+            // change must be between 0-120 in years
+            if(!(age >= 0 && age <= 120)) {
+                showValidationErrorMessage("Age must be in between 0 - 120");
+                return;
+            }
+
+            // DNA must contains only A,C,G,T chars
+            if(!isValidDNA(mutatedDNASeq)) {
+                showValidationErrorMessage("DNA Sequence can be only contained 'A', 'C', 'G', 'T' characters!");
+                return;
+            }
+
+            // set button default mode
+            setButtonToLoadingMode();
+
+            // All inputs valid now!
+            const request_data = {
+                gene : geneName,
+                tumor : tumorOrigin,
+                tier : tier,
+                age : age,
+                mutated_dna : mutatedDNASeq
+            };
+
+            // call ajax request
+            $.ajax({
+                method: "POST",
+                crossDomain: true,
+                dataType: "json",
+                crossOrigin: true,
+                async: true,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: JSON.stringify(request_data),
+                url: API_DNA,
+                success: function (result) {
+                    showResultByDNA(result);
+                    setButtonToDefaultMode();
+                },
+                error: function (error) {
+                    showServerErrorMessage(error.message);
+                    setButtonToDefaultMode();
                 }
+            });
+        }
 
-                if(!isValidDNA(mutatedDNASeq)) {
-                    showValidationErrorMessage("DNA Sequence can be only contained 'A', 'C', 'G', 'T' characters!");
-                    return;
-                }
-
-                setButtonToLoadingMode_1();
-                // All inputs valid now!
-                const request_data = {
-                    gene : geneName,
-                    tumor : tumorOrigin,
-                    tier : tier,
-                    age : age,
-                    mutated_dna : mutatedDNASeq
-                };
-
+        /***
+         * The method handles the form data and
+         * call rest api for melanoma detection using dermoscopic images
+         */
+        function processByDermoscopicImage() {
+            let fd = new FormData();
+            let files = $('#dermoscopic-img')[0].files;
+            if(files.length > 0 ) {
+                fd.append('image',files[0]);
+                setButtonToLoadingMode();
                 $.ajax({
                     method: "POST",
                     crossDomain: true,
                     dataType: "json",
                     crossOrigin: true,
                     async: true,
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    data: JSON.stringify(request_data),
-                    url: API_DNA,
+                    contentType: false,
+                    processData: false,
+                    data: fd,
+                    url: API_DERMOSCOPIC,
                     success: function (result) {
-                        setButtonToDefaultMode_1();
-                        showResultByDNA(result);
+                        showResultByDermoscopicImage(result);
+                        setButtonToDefaultMode();
                     },
                     error: function (error) {
                         showServerErrorMessage(error.message);
-                        setButtonToDefaultMode_1();
+                        setButtonToDefaultMode();
                     }
                 });
+            } else {
+                showValidationErrorMessage("Please input the dermoscopic image!");
+                return;
             }
+        }
+
+        /***
+         * The method show results received from the melanoma detection by Dermoscopic Image API
+         * @param result - JSON of response received from melanoma detection
+         *                 by Dermoscopic Image API
+         */
+        function showResultByDermoscopicImage(result) {
+            document.getElementById("results-image").removeAttribute("style");
+            DERMOSCOPIC_FEATURES.map((feature, index) => {
+                if(result[2][index] === 0)
+                    $(`#${feature}`).text("No");
+                else
+                    $(`#${feature}`).text("Yes");
+            });
+            document.getElementById("classification-2").innerText = result[0];
+            document.getElementById("confidence-level-2").innerText = result[1].toFixed(2);
+            if(result[0] === "Negative")
+                document.getElementById("risk-level-alert-2").setAttribute("class", "alert alert-success");
+            else
+                document.getElementById("risk-level-alert-2").setAttribute("class", "alert alert-danger");
         }
 
         /***
@@ -757,17 +731,20 @@
          *                 by DNA API
          */
         function showResultByDNA(result) {
-            const prob = Math.round(Number(result['probability']) * 100);
-            const resultsDNA = document.getElementById("results-dna");
-            const resultAlert = document.getElementById("risk-level-alert-1");
-            resultsDNA.removeAttribute("style");
-            if(prob >= 50) {
-                resultAlert.setAttribute("class", "alert alert-danger")
+            const prob_no = (Number(result['probability'][0]) * 100).toFixed(2);
+            const prob_yes = (Number(result['probability'][1]) * 100).toFixed(2);
+            document.getElementById("results-dna").removeAttribute("style");
+
+            if(prob_yes >= 50.0) {
+                document.getElementById("risk-level-alert-1").setAttribute("class", "alert alert-danger");
+                document.getElementById("confidence-level-1").innerText = prob_yes.toString();
+                document.getElementById("classification-1").innerText = "Positive";
             } else {
-                resultAlert.setAttribute("class", "alert alert-success")
+                document.getElementById("risk-level-alert-1").setAttribute("class", "alert alert-success");
+                document.getElementById("confidence-level-1").innerText = prob_no.toString();
+                document.getElementById("classification-1").innerText = "Negative";
             }
-            const probElement = document.getElementById("melanoma-probability-byDNA-value");
-            probElement.innerText = prob.toString();
+
             $('#pss_changes > tr > td').remove();
             let pps_tr = "<tr>";
             const pps_values = result['pps'];
@@ -778,44 +755,21 @@
             $('#pss_changes').append(pps_tr);
         }
 
-         /***
-         * The method set 'Check Result' button to be disabled and loading mode for method 1
+        /***
+         * The method set 'Check Result' button to default mode
          */
-        function setButtonToLoadingMode_1() {
-            const btnLoadingSpinner = document.getElementById("btn-loading-spinner-1");
-            const btnCheckResult = document.getElementById("btn-check-result-1");
-            btnLoadingSpinner.setAttribute("class", "spinner-border spinner-border-sm");
-            btnCheckResult.setAttribute("disabled", "true");
+        function setButtonToDefaultMode() {
+            document.getElementById("btn-loading-spinner").removeAttribute("class");
+            document.getElementById("btn-check-result").removeAttribute("disabled");
         }
 
         /***
-         * The method set 'Check Result' button to default mode for method 1
+         * The method set 'Check Result' button to be disabled and loading mode
          */
-        function setButtonToDefaultMode_1() {
-            const btnLoadingSpinner = document.getElementById("btn-loading-spinner-1");
-            const btnCheckResult = document.getElementById("btn-check-result-1");
-            btnLoadingSpinner.removeAttribute("class");
-            btnCheckResult.removeAttribute("disabled");
-        }
-
-        /***
-         * The method set 'Check Result' button to be disabled and loading mode for method 2
-         */
-        function setButtonToLoadingMode_2() {
-            const btnLoadingSpinner = document.getElementById("btn-loading-spinner-2");
-            const btnCheckResult = document.getElementById("btn-check-result-2");
-            btnLoadingSpinner.setAttribute("class", "spinner-border spinner-border-sm");
-            btnCheckResult.setAttribute("disabled", "true");
-        }
-
-        /***
-         * The method set 'Check Result' button to default mode for method 2
-         */
-        function setButtonToDefaultMode_2() {
-            const btnLoadingSpinner = document.getElementById("btn-loading-spinner-2");
-            const btnCheckResult = document.getElementById("btn-check-result-2");
-            btnLoadingSpinner.removeAttribute("class");
-            btnCheckResult.removeAttribute("disabled");
+        function setButtonToLoadingMode() {
+            document.getElementById("btn-loading-spinner")
+                .setAttribute("class", "spinner-border spinner-border-sm");
+            document.getElementById("btn-check-result").setAttribute("disabled", "true");
         }
 
         /***
@@ -823,8 +777,7 @@
          * @param errorMessage - instance of String that indicates the error message
          */
         function showValidationErrorMessage(errorMessage) {
-            const inputValidationErrorBlock = document.getElementById("input-validation-error");
-            inputValidationErrorBlock.setAttribute("style", "display: block;");
+            document.getElementById("input-validation-error").setAttribute("style", "display: block;");
             document.getElementById("input-validation-error-message").innerText = errorMessage;
         }
 
@@ -833,8 +786,7 @@
          * @param errorMessage - instance of String that indicates the error message
          */
         function showServerErrorMessage(errorMessage) {
-            const inputValidationErrorBlock = document.getElementById("server-error");
-            inputValidationErrorBlock.setAttribute("style", "display: block;");
+            document.getElementById("server-error").setAttribute("style", "display: block;");
             document.getElementById("server-error-message").innerText = errorMessage;
         }
 
@@ -842,22 +794,15 @@
          * This function switch the melanoma diagnosis method based on user option
          */
         function onSwitchForm() {
-            const typeDermoscopicImageForm = document.getElementById("form-skin-image");
-            const typeDNAForm = document.getElementById("form-dna");
+            // references
             const type = document.querySelector('input[name="selection"]:checked').value;
-            document.getElementById("resultsImage").setAttribute("style", "display: none;");
-            document.getElementById("results-dna").setAttribute("style", "display: none;");
+            // switch forms
             if(type === "typeDermoscopicImage") {
-                typeDermoscopicImageForm.removeAttribute("style");
-                typeDNAForm.setAttribute("style", "display: none;");
-                document.getElementById("checkButtonImage").removeAttribute("style");
-                document.getElementById("checkButtonDNA").setAttribute("style", "display: none;");
-                
+                document.getElementById("form-skin-image").removeAttribute("style");
+                document.getElementById("form-dna").setAttribute("style", "display: none;");
             } else if(type === "typeDNA") {
-                typeDNAForm.removeAttribute("style");
-                typeDermoscopicImageForm.setAttribute("style", "display: none;");
-                document.getElementById("checkButtonDNA").removeAttribute("style");
-                document.getElementById("checkButtonImage").setAttribute("style", "display: none;");
+                document.getElementById("form-dna").removeAttribute("style");
+                document.getElementById("form-skin-image").setAttribute("style", "display: none;");
             }
         }
 
