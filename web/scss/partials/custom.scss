@@ -1,7 +1,7 @@
 //for customize the bootstrap styles
 @import "./_variables.scss";
 body{
-    font-family: Calcutta;
+    font-family: Calcutta, serif;
 }
 .container{
     max-width: inherit;
@@ -13,9 +13,7 @@ body{
 }
 .navbar-light 
 {
-    padding:0;
-    padding-left: 5%;
-    padding-right: 5%;
+    padding: 0 5%;
     background-color: $blue;
     .navbar-brand{
         .icon-melanoma-icon{
@@ -73,15 +71,14 @@ hr{
     
         .tool-functionality-title{
             background-color: $lightblue;
-            padding: 5px;
             color: $blue;
             // text-decoration: underline;
             font-style: italic;
             font-weight: 600;
             cursor: pointer;
             font-size: 25px;
-            padding-left: 10px;
-            
+            padding: 5px 5px 5px 10px;
+
             &::after{
                 content: quote($string: "?");
                 font-size: 40px;
@@ -92,7 +89,7 @@ hr{
     }
 
     .tool-functionality-body{
-        font-family: "Playfair Display";
+        font-family: "Playfair Display", serif;
         font-size: 18px;
         margin-left: 5%;
         margin-right: 5%;
@@ -143,7 +140,7 @@ hr{
             border: none;
             border-bottom: 2px solid $black;
             background-color: $ash-blue;
-            border-radius: 0%;
+            border-radius: 0;
         }
         .first-para{
             &:first-letter {
@@ -160,7 +157,7 @@ hr{
             padding-bottom: 5px;
             // column-count: 2;
             // column-gap: 40px;
-            font-family: "Playfair Display";
+            font-family: "Playfair Display", serif;
             
             q{
                 margin-bottom:-30px;
@@ -223,6 +220,6 @@ hr{
 }
 
 .row{
-    margin-right: 0px;
-    margin-left: 0px;
+    margin-right: 0;
+    margin-left: 0;
 }

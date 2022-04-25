@@ -86,7 +86,6 @@ p {
 
 abbr[title],
 abbr[data-original-title] {
-  text-decoration: underline;
   text-decoration: underline dotted;
   cursor: help;
   border-bottom: 0;
@@ -1900,7 +1899,7 @@ pre code {
   background-color: rgba(255, 255, 255, 0.075);
 }
 
-@media (max-width: 575.98px) {
+@media (max-width: 576px) {
   .table-responsive-sm {
     display: block;
     width: 100%;
@@ -1911,7 +1910,7 @@ pre code {
     border: 0;
   }
 }
-@media (max-width: 767.98px) {
+@media (max-width: 768px) {
   .table-responsive-md {
     display: block;
     width: 100%;
@@ -1922,7 +1921,7 @@ pre code {
     border: 0;
   }
 }
-@media (max-width: 991.98px) {
+@media (max-width: 992px) {
   .table-responsive-lg {
     display: block;
     width: 100%;
@@ -1933,7 +1932,7 @@ pre code {
     border: 0;
   }
 }
-@media (max-width: 1199.98px) {
+@media (max-width: 1200px) {
   .table-responsive-xl {
     display: block;
     width: 100%;
@@ -4010,7 +4009,7 @@ input[type=button].btn-block {
   overflow-y: auto;
 }
 
-@media (max-width: 575.98px) {
+@media (max-width: 576px) {
   .navbar-expand-sm > .container,
 .navbar-expand-sm > .container-fluid,
 .navbar-expand-sm > .container-sm,
@@ -4055,7 +4054,7 @@ input[type=button].btn-block {
     display: none;
   }
 }
-@media (max-width: 767.98px) {
+@media (max-width: 768px) {
   .navbar-expand-md > .container,
 .navbar-expand-md > .container-fluid,
 .navbar-expand-md > .container-sm,
@@ -4100,7 +4099,7 @@ input[type=button].btn-block {
     display: none;
   }
 }
-@media (max-width: 991.98px) {
+@media (max-width: 992px) {
   .navbar-expand-lg > .container,
 .navbar-expand-lg > .container-fluid,
 .navbar-expand-lg > .container-sm,
@@ -4145,7 +4144,7 @@ input[type=button].btn-block {
     display: none;
   }
 }
-@media (max-width: 1199.98px) {
+@media (max-width: 1200px) {
   .navbar-expand-xl > .container,
 .navbar-expand-xl > .container-fluid,
 .navbar-expand-xl > .container-sm,
@@ -4439,7 +4438,7 @@ input[type=button].btn-block {
     margin-left: -15px;
   }
   .card-deck .card {
-    flex: 1 0 0%;
+    flex: 1 0 0;
     margin-right: 15px;
     margin-bottom: 0;
     margin-left: 15px;
@@ -4455,7 +4454,7 @@ input[type=button].btn-block {
     flex-flow: row wrap;
   }
   .card-group > .card {
-    flex: 1 0 0%;
+    flex: 1 0 0;
     margin-bottom: 0;
   }
   .card-group > .card + .card {
@@ -4505,7 +4504,7 @@ input[type=button].btn-block {
 }
 
 .accordion {
-  overflow-anchor: none;
+  overflow-style: auto;
 }
 .accordion > .card {
   overflow: hidden;
@@ -5407,7 +5406,7 @@ a.close.disabled {
 .modal-dialog-centered::before {
   display: block;
   height: calc(100vh - 1rem);
-  height: min-content;
+  /*height: min-content;*/
   content: "";
 }
 .modal-dialog-centered.modal-dialog-scrollable {
@@ -5516,7 +5515,7 @@ a.close.disabled {
   }
   .modal-dialog-centered::before {
     height: calc(100vh - 3.5rem);
-    height: min-content;
+    /*height: min-content;*/
   }
 
   .modal-sm {
@@ -5543,7 +5542,7 @@ a.close.disabled {
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
-  text-align: left;
+  /*text-align: left;*/
   text-align: start;
   text-decoration: none;
   text-shadow: none;
@@ -5645,7 +5644,7 @@ a.close.disabled {
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
-  text-align: left;
+  /*text-align: left;*/
   text-align: start;
   text-decoration: none;
   text-shadow: none;
@@ -9806,7 +9805,6 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .text-hide {
-  font: 0/0 a;
   color: transparent;
   text-shadow: none;
   background-color: transparent;

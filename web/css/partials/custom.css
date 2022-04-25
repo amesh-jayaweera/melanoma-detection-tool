@@ -1,5 +1,5 @@
 body {
-  font-family: Calcutta;
+  font-family: Calcutta, serif;
 }
 
 .container {
@@ -12,9 +12,7 @@ body {
 }
 
 .navbar-light {
-  padding: 0;
-  padding-left: 5%;
-  padding-right: 5%;
+  padding: 0 5%;
   background-color: #3B5998;
 }
 .navbar-light .navbar-brand .icon-melanoma-icon {
@@ -62,13 +60,12 @@ hr {
 }
 .melanoma-detection-tool .tool-functionality .tool-functionality-title {
   background-color: #bad1ee;
-  padding: 5px;
   color: #3B5998;
   font-style: italic;
   font-weight: 600;
   cursor: pointer;
   font-size: 25px;
-  padding-left: 10px;
+  padding: 5px 5px 5px 10px;
 }
 .melanoma-detection-tool .tool-functionality .tool-functionality-title::after {
   content: "?";
@@ -77,7 +74,7 @@ hr {
   font-weight: 800;
 }
 .melanoma-detection-tool .tool-functionality-body {
-  font-family: "Playfair Display";
+  font-family: "Playfair Display", serif;
   font-size: 18px;
   margin-left: 5%;
   margin-right: 5%;
@@ -121,7 +118,7 @@ hr {
   border: none;
   border-bottom: 2px solid #1b1b1d;
   background-color: rgba(214, 222, 231, 0.61);
-  border-radius: 0%;
+  border-radius: 0;
 }
 .about-melanoma .about-melanoma-body .first-para:first-letter, .about-melanoma .melanoma-detection-tool-body .first-para:first-letter, .about-melanoma .tool-functionality-body .first-para:first-letter, .about-melanoma .melanoma-diagnosis-body .first-para:first-letter, .about-melanoma .contact-us-body .first-para:first-letter, .melanoma-detection-tool .about-melanoma-body .first-para:first-letter, .melanoma-detection-tool .melanoma-detection-tool-body .first-para:first-letter, .melanoma-detection-tool .tool-functionality-body .first-para:first-letter, .melanoma-detection-tool .melanoma-diagnosis-body .first-para:first-letter, .melanoma-detection-tool .contact-us-body .first-para:first-letter, .melanoma-diagnosis .about-melanoma-body .first-para:first-letter, .melanoma-diagnosis .melanoma-detection-tool-body .first-para:first-letter, .melanoma-diagnosis .tool-functionality-body .first-para:first-letter, .melanoma-diagnosis .melanoma-diagnosis-body .first-para:first-letter, .melanoma-diagnosis .contact-us-body .first-para:first-letter, .contact-us .about-melanoma-body .first-para:first-letter, .contact-us .melanoma-detection-tool-body .first-para:first-letter, .contact-us .tool-functionality-body .first-para:first-letter, .contact-us .melanoma-diagnosis-body .first-para:first-letter, .contact-us .contact-us-body .first-para:first-letter {
   float: left;
@@ -132,7 +129,7 @@ hr {
 .about-melanoma .about-melanoma-body p, .about-melanoma .about-melanoma-body label, .about-melanoma .melanoma-detection-tool-body p, .about-melanoma .melanoma-detection-tool-body label, .about-melanoma .tool-functionality-body p, .about-melanoma .tool-functionality-body label, .about-melanoma .melanoma-diagnosis-body p, .about-melanoma .melanoma-diagnosis-body label, .about-melanoma .contact-us-body p, .about-melanoma .contact-us-body label, .melanoma-detection-tool .about-melanoma-body p, .melanoma-detection-tool .about-melanoma-body label, .melanoma-detection-tool .melanoma-detection-tool-body p, .melanoma-detection-tool .melanoma-detection-tool-body label, .melanoma-detection-tool .tool-functionality-body p, .melanoma-detection-tool .tool-functionality-body label, .melanoma-detection-tool .melanoma-diagnosis-body p, .melanoma-detection-tool .melanoma-diagnosis-body label, .melanoma-detection-tool .contact-us-body p, .melanoma-detection-tool .contact-us-body label, .melanoma-diagnosis .about-melanoma-body p, .melanoma-diagnosis .about-melanoma-body label, .melanoma-diagnosis .melanoma-detection-tool-body p, .melanoma-diagnosis .melanoma-detection-tool-body label, .melanoma-diagnosis .tool-functionality-body p, .melanoma-diagnosis .tool-functionality-body label, .melanoma-diagnosis .melanoma-diagnosis-body p, .melanoma-diagnosis .melanoma-diagnosis-body label, .melanoma-diagnosis .contact-us-body p, .melanoma-diagnosis .contact-us-body label, .contact-us .about-melanoma-body p, .contact-us .about-melanoma-body label, .contact-us .melanoma-detection-tool-body p, .contact-us .melanoma-detection-tool-body label, .contact-us .tool-functionality-body p, .contact-us .tool-functionality-body label, .contact-us .melanoma-diagnosis-body p, .contact-us .melanoma-diagnosis-body label, .contact-us .contact-us-body p, .contact-us .contact-us-body label {
   font-size: 18px;
   padding-bottom: 5px;
-  font-family: "Playfair Display";
+  font-family: "Playfair Display", serif;
 }
 .about-melanoma .about-melanoma-body p q, .about-melanoma .about-melanoma-body label q, .about-melanoma .melanoma-detection-tool-body p q, .about-melanoma .melanoma-detection-tool-body label q, .about-melanoma .tool-functionality-body p q, .about-melanoma .tool-functionality-body label q, .about-melanoma .melanoma-diagnosis-body p q, .about-melanoma .melanoma-diagnosis-body label q, .about-melanoma .contact-us-body p q, .about-melanoma .contact-us-body label q, .melanoma-detection-tool .about-melanoma-body p q, .melanoma-detection-tool .about-melanoma-body label q, .melanoma-detection-tool .melanoma-detection-tool-body p q, .melanoma-detection-tool .melanoma-detection-tool-body label q, .melanoma-detection-tool .tool-functionality-body p q, .melanoma-detection-tool .tool-functionality-body label q, .melanoma-detection-tool .melanoma-diagnosis-body p q, .melanoma-detection-tool .melanoma-diagnosis-body label q, .melanoma-detection-tool .contact-us-body p q, .melanoma-detection-tool .contact-us-body label q, .melanoma-diagnosis .about-melanoma-body p q, .melanoma-diagnosis .about-melanoma-body label q, .melanoma-diagnosis .melanoma-detection-tool-body p q, .melanoma-diagnosis .melanoma-detection-tool-body label q, .melanoma-diagnosis .tool-functionality-body p q, .melanoma-diagnosis .tool-functionality-body label q, .melanoma-diagnosis .melanoma-diagnosis-body p q, .melanoma-diagnosis .melanoma-diagnosis-body label q, .melanoma-diagnosis .contact-us-body p q, .melanoma-diagnosis .contact-us-body label q, .contact-us .about-melanoma-body p q, .contact-us .about-melanoma-body label q, .contact-us .melanoma-detection-tool-body p q, .contact-us .melanoma-detection-tool-body label q, .contact-us .tool-functionality-body p q, .contact-us .tool-functionality-body label q, .contact-us .melanoma-diagnosis-body p q, .contact-us .melanoma-diagnosis-body label q, .contact-us .contact-us-body p q, .contact-us .contact-us-body label q {
   margin-bottom: -30px;
@@ -187,6 +184,6 @@ hr {
 }
 
 .row {
-  margin-right: 0px;
-  margin-left: 0px;
+  margin-right: 0;
+  margin-left: 0;
 }
