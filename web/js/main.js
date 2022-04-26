@@ -145,8 +145,9 @@ function showResultByDNA(result) {
     const mutations_found = result['status']
     if(mutations_found == 'NOT_FOUND'){
         document.getElementById("lbl-no-mutations").innerText = "There are no mutations identified in the entered Patient sequence. Therefore, no Melanoma risk.";
-        var dna_table_div = document.getElementById("dna_table_div");
-        var pps_table_div = document.getElementById("pps_table_div");
+        let dna_table_div = document.getElementById("dna_table_div");
+        let pps_table_div = document.getElementById("pps_table_div");
+        document.getElementById("risk-level-alert-1").style.display = "block";
 
         dna_table_div.style.display = "block";
         pps_table_div.style.display = "block";
