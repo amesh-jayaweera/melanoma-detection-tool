@@ -141,28 +141,61 @@ function showResultByDermoscopicImage(result) {
  *                 by DNA API
  */
 function showResultByDNA(result) {
-    const prob_no = (Number(result['probability'][0]) * 100).toFixed(2);
-    const prob_yes = (Number(result['probability'][1]) * 100).toFixed(2);
-    document.getElementById("results-dna").removeAttribute("style");
 
-    if(prob_yes >= 50.0) {
-        document.getElementById("risk-level-alert-1").setAttribute("class", "alert alert-danger");
-        document.getElementById("confidence-level-1").innerText = prob_yes.toString();
-        document.getElementById("classification-1").innerText = "Positive";
-    } else {
-        document.getElementById("risk-level-alert-1").setAttribute("class", "alert alert-success");
-        document.getElementById("confidence-level-1").innerText = prob_no.toString();
-        document.getElementById("classification-1").innerText = "Negative";
+    const mutations_found = result['status']
+    if(mutations_found == 'NOT_FOUND'){
+        document.getElementById("lbl-no-mutations").innerText = "There are no mutations identified in the entered Patient sequence. Therefore, no Melanoma risk.";
+        var dna_table_div = document.getElementById("dna_table_div");
+        var pps_table_div = document.getElementById("pps_table_div");
+
+        dna_table_div.style.display = "block";
+        pps_table_div.style.display = "block";
+
+    }else{
+        const mutations = result['mutations']
+        const mutation_positions = result['mutation_positions']
+
+        $('#mutation_change > tr > th').remove();
+        let mutation_tr = "<tr>";
+        for(let i=0; i<mutations.length; i++) {
+            mutation_tr += "<th>" + mutations[i].toString() + "</th>";
+        }
+        mutation_tr += "</tr>";
+        $('#mutation_change').append(mutation_tr);
+
+        $('#mutation_pos_change > tr > td').remove();
+        let mutation_pos_tr = "<tr>";
+        for(let i=0; i<mutation_positions.length; i++) {
+            mutation_pos_tr += "<td>" + mutation_positions[i].toString() + "</td>";
+        }
+        mutation_pos_tr += "</tr>";
+        $('#mutation_change').append(mutation_pos_tr);
+
+        const prob_no = (Number(result['probability'][0]) * 100).toFixed(2);
+        const prob_yes = (Number(result['probability'][1]) * 100).toFixed(2);
+        document.getElementById("results-dna").removeAttribute("style");
+
+        if(prob_yes >= 50.0) {
+            document.getElementById("risk-level-alert-1").setAttribute("class", "alert alert-danger");
+            document.getElementById("confidence-level-1").innerText = prob_yes.toString();
+            document.getElementById("classification-1").innerText = "Positive";
+        } else {
+            document.getElementById("risk-level-alert-1").setAttribute("class", "alert alert-success");
+            document.getElementById("confidence-level-1").innerText = prob_no.toString();
+            document.getElementById("classification-1").innerText = "Negative";
+        }
+
+        $('#pss_changes > tr > td').remove();
+        let pps_tr = "<tr>";
+        const pps_values = result['pps'];
+        for(let i=0; i<pps_values.length; i++) {
+            pps_tr += "<td>" + pps_values[i].toString() + "</td>";
+        }
+        pps_tr += "</tr>";
+        $('#pss_changes').append(pps_tr);
     }
 
-    $('#pss_changes > tr > td').remove();
-    let pps_tr = "<tr>";
-    const pps_values = result['pps'];
-    for(let i=0; i<pps_values.length; i++) {
-        pps_tr += "<td>" + pps_values[i].toString() + "</td>";
-    }
-    pps_tr += "</tr>";
-    $('#pss_changes').append(pps_tr);
+
 }
 
 /***
