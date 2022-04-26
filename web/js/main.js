@@ -2,7 +2,7 @@
 const DNA_CHARS = ['A', 'C', 'G', 'T'];
 const DERMOSCOPIC_FEATURES = ['asymmetry', 'border', 'colour', 'diameter', 'globules', 'blotches', 'red',
     'rosettes','regression', 'blue', 'atypical', 'streaks'];
-const API_DNA = "https://melanoma-detection-tool-api.herokuapp.com/predict-melanoma/pps";
+const API_DNA = "https://melanoma-detection-api-v2.herokuapp.com/predict-melanoma/pps";
 const API_DERMOSCOPIC = "https://melanoma-detection-tool-api.herokuapp.com/predict-melanoma/dermoscopic-images";
 
 /***
@@ -142,19 +142,25 @@ function showResultByDermoscopicImage(result) {
  */
 function showResultByDNA(result) {
 
-    const mutations_found = result['status']
-    if(mutations_found == 'NOT_FOUND'){
-        document.getElementById("lbl-no-mutations").innerText = "There are no mutations identified in the entered Patient sequence. Therefore, no Melanoma risk.";
-        let dna_table_div = document.getElementById("dna_table_div");
-        let pps_table_div = document.getElementById("pps_table_div");
-        document.getElementById("risk-level-alert-1").style.display = "block";
+    document.getElementById("results-dna").removeAttribute("style");
+    const mutations_found = result['status'];
+    if(mutations_found === 'NOT_FOUND') {
+        document.getElementById("lbl-no-mutations").innerText =
+            "There are no mutations identified in the entered Patient sequence. Therefore, no Melanoma risk.";
+        document.getElementById("lbl-no-mutations-block").setAttribute("style",
+            "display: block;");
+        document.getElementById("dna_table_div").setAttribute("style", "display: none;");
+        document.getElementById("pps_table_div").setAttribute("style", "display: none;");
+        document.getElementById("risk-level-alert-1").setAttribute("style", "display: none;");
+    } else {
+        document.getElementById("dna_table_div").removeAttribute("style");
+        document.getElementById("pps_table_div").removeAttribute("style");
+        document.getElementById("risk-level-alert-1").removeAttribute("style");
 
-        dna_table_div.style.display = "block";
-        pps_table_div.style.display = "block";
-
-    }else{
-        const mutations = result['mutations']
-        const mutation_positions = result['mutation_positions']
+        document.getElementById("lbl-no-mutations-block").setAttribute("style",
+            "display: none;");
+        const mutations = result['mutations'];
+        const mutation_positions = result['mutation_positions'];
 
         $('#mutation_change > tr > th').remove();
         let mutation_tr = "<tr>";
@@ -170,7 +176,7 @@ function showResultByDNA(result) {
             mutation_pos_tr += "<td>" + mutation_positions[i].toString() + "</td>";
         }
         mutation_pos_tr += "</tr>";
-        $('#mutation_change').append(mutation_pos_tr);
+        $('#mutation_pos_change').append(mutation_pos_tr);
 
         const prob_no = (Number(result['probability'][0]) * 100).toFixed(2);
         const prob_yes = (Number(result['probability'][1]) * 100).toFixed(2);
@@ -195,8 +201,6 @@ function showResultByDNA(result) {
         pps_tr += "</tr>";
         $('#pss_changes').append(pps_tr);
     }
-
-
 }
 
 /***
@@ -231,7 +235,7 @@ function showValidationErrorMessage(errorMessage) {
  */
 function showServerErrorMessage(errorMessage) {
     document.getElementById("server-error").setAttribute("style", "display: block;");
-    document.getElementById("server-error-message").innerText = errorMessage;
+    document.getElementById("server-error-message").innerText = "Please check your input parameters!";
 }
 
 /***
