@@ -685,6 +685,10 @@ pre code {
     max-width: 50%;
   }
 
+  .col-lg-5 {
+    flex: 0 0 45%;
+    max-width: 45%;
+  }
   .col-lg-9 {
     flex: 0 0 75%;
     max-width: 75%;
@@ -9069,4 +9073,60 @@ hr {
   appearance: none;
   border-radius: 0.25rem;
   transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.header .navbar-brand img{
+  width: 200px;
+}
+
+.subscription-cards .card-header{
+  font-size: 25px;
+  color: white;
+  background-color:#e83e8c;
+}
+
+.subscription-cards .card-body{
+  background: #ffdefb;
+}
+
+.subscription-cards .card-header-yellow{
+  background-color:#f1a900;
+}
+
+.subscription-cards .card-body-yellow{
+  background-color:#ffe8b1;
+}
+
+@media only screen and (max-width: 481px){
+  .header .navbar-brand img{
+    width:150px !important;
+  }
+  .about-melanoma-heading {
+    font-size: 20px !important;
+
+  }
+  .about-melanoma-heading span{
+    font-size: 40px !important;
+  }
+  .about-melanoma, .melanoma-detection-tool, .melanoma-diagnosis, .contact-us {
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 20px;
+  }
+  .melanoma-detection-tool-heading{
+    font-size: 25px !important;
+  }
+  .melanoma-detection-tool-heading{
+    font-size: 25px !important;
+  }
+  .melanoma-detection-tool-heading span{
+    font-size: 40px !important;
+  }
+
+  .contact-us-heading{
+    font-size: 25px !important;
+  }
+
+  .container{
+    font-size: 16px;
+  }
 }
