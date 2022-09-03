@@ -9096,6 +9096,10 @@ hr {
   background-color:#ffe8b1;
 }
 
+.logo-footer{
+  width: 300px;
+}
+
 @media only screen and (max-width: 481px){
   .header .navbar-brand img{
     width:150px !important;
@@ -9128,5 +9132,9 @@ hr {
 
   .container{
     font-size: 16px;
+  }
+
+  .logo-footer{
+    width: 130px !important;
   }
 }
